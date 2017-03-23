@@ -1,4 +1,4 @@
-# emma_parser
+# EMMA C++ Parser
 
 This project is a parser for EMMA XML files in C++.
 
