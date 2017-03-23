@@ -1,1 +1,5 @@
 /Release/
+/.project
+/.cproject
+/.settings
+/.DS_Store
