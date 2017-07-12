@@ -7,11 +7,16 @@
 
 #include "Interpretation.h"
 #include <sstream>
+#if defined WIN32 || _WIN64
+#include <algorithm>
+#endif
+
 
 Interpretation::Interpretation() {
 	confidence = 1.0f;
 	cost = 0.0f;
-	start = end = offset_to_start = signal_size = 0;
+	start = end = signal_size = 0;
+	offset_to_start = 0;
 	parent = NULL;
 	no_input = uninterpreted = verbal = false;
 	grammarRef = NULL;
@@ -32,11 +37,11 @@ void Interpretation::addDerivedFrom(DerivedFrom* derivedFrom) {
 void Interpretation::setStart(unsigned long long start) {
 	this->start = start;
 
-	if( parent ) { // valid parent
-		if( parent->getStart()==0 ) // unset parent start
-			parent->setStart(start);
+	if(this->parent ) { // valid parent
+		if(this->parent->getStart()==0 ) // unset parent start
+			this->parent->setStart( start);
 		else // set parent start. I just update it
-			parent->setStart( min(parent->getStart(), start) );
+			this->parent->setStart(min(this->parent->getStart(), start) );
 	}
 }
 
@@ -45,14 +50,14 @@ void Interpretation::setStart(unsigned long long start) {
  */
 void Interpretation::setDuration(unsigned long long dur) {
 
-	if( end==0 ) {
-		end = start+dur;
+	if(this->end==0 ) {
+		this->end = this->start+dur;
 	}
-	else if( start==0 && ((long)end-(long)dur)>=0)
-		start = end-dur;
+	else if(this->start==0 && ((long)this->end-(long)dur)>=0)
+		this->start = this->end-dur;
 
-	if( parent )
-		parent->setDuration(dur);
+	if(this->parent )
+		this->parent->setDuration( dur);
 }
 
 /**
@@ -61,11 +66,11 @@ void Interpretation::setDuration(unsigned long long dur) {
 void Interpretation::setEnd(unsigned long long end) {
 	this->end = end;
 
-	if( parent ) { // valid parent
-		if( parent->getEnd()==0 ) // unset parent end
-			parent->setEnd(end);
+	if(this->parent ) { // valid parent
+		if(this->parent->getEnd()==0 ) // unset parent end
+			this->parent->setEnd( end);
 		else // set parent end. I just update it
-			parent->setEnd( max(parent->getEnd(), end) );
+			this->parent->setEnd( max(this->parent->getEnd(), end) );
 	}
 }
 
@@ -74,10 +79,10 @@ string Interpretation::toString() {
 	vector<DerivedFrom*>::iterator it;
 
 	ss << "<interpretation "
-			<< attributesToString()
+			<< this->attributesToString()
 			<< ">" << endl;
 
-	for( it=derivedFrom.begin(); it!=derivedFrom.end(); it++) {
+	for( it= this->derivedFrom.begin(); it!= this->derivedFrom.end(); it++) {
 		ss << (*it)->toString();
 	}
 

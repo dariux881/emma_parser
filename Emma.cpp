@@ -14,6 +14,7 @@ Emma::Emma() {
 }
 
 Emma::~Emma() {
+
 }
 
 string Emma::toString() {
@@ -21,10 +22,10 @@ string Emma::toString() {
 
 	ss << "<emma>" << endl;
 
-	if( derivation )
-		ss << derivation->toString();
-	if( container )
-		ss << container->toString();
+	if( this->derivation )
+		ss << this->derivation->toString();
+	if(this->container )
+		ss << this->container->toString();
 
 	ss << "</emma>";
 
@@ -35,8 +36,8 @@ vector<Interpretation*> Emma::getAllData() {
 	vector<Interpretation*> result;
 	vector<Container*>::iterator it;
 
-	if( container )
-		result = container->getInterpretations();
+	if(this->container )
+		result = this->container->getInterpretations();
 
 	return result;
 }

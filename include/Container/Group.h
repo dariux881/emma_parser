@@ -8,25 +8,31 @@
 #ifndef CONTAINER_GROUP_H_
 #define CONTAINER_GROUP_H_
 
+#ifdef EMMAPARSER_EXPORTS  
+#define EMMAPARSER_API __declspec(dllexport)   
+#else  
+#define EMMAPARSER_API __declspec(dllimport)   
+#endif  
+
 #include "Container.h"
 #include "../Interpretation.h"
 
 class Group : public Container {
 public:
-	Group();
-	virtual ~Group();
+	EMMAPARSER_API Group();
+	EMMAPARSER_API virtual ~Group();
 
-	void addInterpretation(Interpretation* newInt) {
-		addInterpretation_impl(newInt);
+	EMMAPARSER_API void addInterpretation(Interpretation* newInt) {
+		this->addInterpretation_impl(newInt);
 	}
-	void addNestedContainer(Container* newCont) {
-		addNestedContainer_impl(newCont);
+	EMMAPARSER_API void addNestedContainer(Container* newCont) {
+		this->addNestedContainer_impl(newCont);
 	}
-	vector<Interpretation*> getInterpretations() {
-		return getInterpretations_impl();
+	EMMAPARSER_API vector<Interpretation*> getInterpretations() {
+		return this->getInterpretations_impl();
 	}
-	string toString() {
-		return toString_impl();
+	EMMAPARSER_API string toString() {
+		return this->toString_impl();
 	}
 
 protected:

@@ -8,6 +8,12 @@
 #ifndef DERIVEDFROM_H_
 #define DERIVEDFROM_H_
 
+#ifdef EMMAPARSER_EXPORTS  
+#define EMMAPARSER_API __declspec(dllexport)   
+#else  
+#define EMMAPARSER_API __declspec(dllimport)   
+#endif  
+
 #include <string>
 #include "Interpretation.h"
 
@@ -20,15 +26,15 @@ public:
 	DerivedFrom();
 	virtual ~DerivedFrom();
 
-	void setComposite(bool composite) { this->composite = composite; }
-	void setResource(Interpretation* interRef) { this->resource = interRef; }
-	void setResourceId(string interRefId);
+	EMMAPARSER_API void setComposite(bool composite) { this->composite = composite; }
+	EMMAPARSER_API void setResource(Interpretation* interRef) { this->resource = interRef; }
+	EMMAPARSER_API void setResourceId(string interRefId);
 
-	bool isComposite() { return composite; }
-	Interpretation* getResource() { return resource; }
-	string getResourceId() { return resourceId; }
+	EMMAPARSER_API bool isComposite() { return this->composite; }
+	EMMAPARSER_API Interpretation* getResource() { return this->resource; }
+	EMMAPARSER_API string getResourceId() { return this->resourceId; }
 
-	string	toString();
+	EMMAPARSER_API string	toString();
 
 private:
 	string 			resourceId;

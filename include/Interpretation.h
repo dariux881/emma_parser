@@ -8,6 +8,12 @@
 #ifndef INTERPRETATION_H_
 #define INTERPRETATION_H_
 
+#ifdef EMMAPARSER_EXPORTS  
+#define EMMAPARSER_API __declspec(dllexport)   
+#else  
+#define EMMAPARSER_API __declspec(dllimport)   
+#endif  
+
 #include "Container/Container.h"
 #include "Grammar.h"
 #include "Model.h"
@@ -21,70 +27,70 @@ class Container;
 
 class Interpretation {
 public:
-	Interpretation();
-	virtual ~Interpretation();
+	EMMAPARSER_API Interpretation();
+	EMMAPARSER_API virtual ~Interpretation();
 
-	void setId(string id) { this->id = id; }
-	void setContainerParent(Container* par) { parent = par; }
-	void setConfidence(float confidence) { this->confidence = confidence; }
-	void setMedium(const string& medium) { this->medium = medium; }
-	void setMode(const string& mode) { this->mode = mode; }
-	void setNoInput(bool noInput) { no_input = noInput; }
-	void setStart(unsigned long long start);
-	void setDuration(unsigned long long duration);
-	void setEnd(unsigned long long end);
-	void setTokens(const string& tokens) { this->tokens = tokens; }
-	void setUninterpreted(bool uninterpreted) { this->uninterpreted = uninterpreted; }
-	void setCost(float cost) { this->cost = cost; }
-	void setDialogTurn(string dialogTurn) { dialog_turn = dialogTurn; }
-	void setFunction(string function) { this->function = function; }
-	void setGrammarRef(string grammarRef) { grammar_ref = grammarRef; }
-	void setLang(string lang) { this->lang = lang; }
-	void setMediaType(string mediaType) { media_type = mediaType; }
-	void setModelRef(string modelRef) { model_ref = modelRef; }
-	void setOffsetToStart(long offsetToStart) { offset_to_start = offsetToStart; }
-	void setProcess(string process) { this->process = process; }
-	void setSignal(string signal) { this->signal = signal; }
-	void setSignalSize(unsigned long long signalSize) { signal_size = signalSize; }
-	void setSource(string source) { this->source = source; }
-	void setTimeRefAnchorPoint(string timeRefAnchorPoint) { time_ref_anchor_point = timeRefAnchorPoint; }
-	void setTimeRefUri(string timeRefUri) { time_ref_uri = timeRefUri; }
-	void setVerbal(bool verbal) { this->verbal = verbal; }
-	void setGrammarRef( Grammar* ref) { grammarRef = ref; }
-	void setModelRef(Model* ref) { modelRef = ref; }
-	void addDerivedFrom(DerivedFrom* derivedFrom);
+	EMMAPARSER_API void setId(string id) { this->id = id; }
+	EMMAPARSER_API void setContainerParent(Container* par) { this->parent = par; }
+	EMMAPARSER_API void setConfidence(float confidence) { this->confidence = confidence; }
+	EMMAPARSER_API void setMedium(const string& medium) { this->medium = medium; }
+	EMMAPARSER_API void setMode(const string& mode) { this->mode = mode; }
+	EMMAPARSER_API void setNoInput(bool noInput) { this->no_input = noInput; }
+	EMMAPARSER_API void setStart(unsigned long long start);
+	EMMAPARSER_API void setDuration(unsigned long long duration);
+	EMMAPARSER_API void setEnd(unsigned long long end);
+	EMMAPARSER_API void setTokens(const string& tokens) { this->tokens = tokens; }
+	EMMAPARSER_API void setUninterpreted(bool uninterpreted) { this->uninterpreted = uninterpreted; }
+	EMMAPARSER_API void setCost(float cost) { this->cost = cost; }
+	EMMAPARSER_API void setDialogTurn(string dialogTurn) { this->dialog_turn = dialogTurn; }
+	EMMAPARSER_API void setFunction(string function) { this->function = function; }
+	EMMAPARSER_API void setGrammarRef(string grammarRef) { this->grammar_ref = grammarRef; }
+	EMMAPARSER_API void setLang(string lang) { this->lang = lang; }
+	EMMAPARSER_API void setMediaType(string mediaType) { this->media_type = mediaType; }
+	EMMAPARSER_API void setModelRef(string modelRef) { this->model_ref = modelRef; }
+	EMMAPARSER_API void setOffsetToStart(long offsetToStart) { this->offset_to_start = offsetToStart; }
+	EMMAPARSER_API void setProcess(string process) { this->process = process; }
+	EMMAPARSER_API void setSignal(string signal) { this->signal = signal; }
+	EMMAPARSER_API void setSignalSize(unsigned long long signalSize) { this->signal_size = signalSize; }
+	EMMAPARSER_API void setSource(string source) { this->source = source; }
+	EMMAPARSER_API void setTimeRefAnchorPoint(string timeRefAnchorPoint) { this->time_ref_anchor_point = timeRefAnchorPoint; }
+	EMMAPARSER_API void setTimeRefUri(string timeRefUri) { this->time_ref_uri = timeRefUri; }
+	EMMAPARSER_API void setVerbal(bool verbal) { this->verbal = verbal; }
+	EMMAPARSER_API void setGrammarRef(Grammar* ref) { this->grammarRef = ref; }
+	EMMAPARSER_API void setModelRef(Model* ref) { this->modelRef = ref; }
+	EMMAPARSER_API void addDerivedFrom(DerivedFrom* derivedFrom);
 
-	string			getId() { return id; }
-	float 			getConfidence() { return confidence; }
-	unsigned long long 	getDuration() { return (end-start); }
-	unsigned long long 	getEnd() { return end; }
-	const string& 	getMedium() { return medium; }
-	const string& 	getMode() { return mode; }
-	bool 			isNoInput() { return no_input; }
-	Container* 		getParent() { return parent; }
-	unsigned long long 	getStart() { return start; }
-	const string& 	getTokens() { return tokens; }
-	bool 			isUninterpreted() { return uninterpreted; }
-	float 			getCost() { return cost; }
-	string 			getDialogTurn() { return dialog_turn; }
-	string 			getFunction() { return function; }
-	string 			getLang() { return lang; }
-	string 			getMediaType() { return media_type; }
-	string 			getModelRefId() { return model_ref; }
-	string	 		getGrammarRefId() { return grammar_ref; }
-	Model* 			getModelRef() { return modelRef; }
-	Grammar* 		getGrammarRef() { return grammarRef; }
-	long 			getOffsetToStart() { return offset_to_start; }
-	string 			getProcess() { return process; }
-	string 			getSignal() { return signal; }
-	unsigned long long 	getSignalSize() { return signal_size; }
-	string 			getSource() { return source; }
-	string 			getTimeRefAnchorPoint() { return time_ref_anchor_point; }
-	string 			getTimeRefUri() { return time_ref_uri; }
-	bool 			isVerbal() { return verbal; }
-	vector<DerivedFrom*> getDerivedFrom() { return derivedFrom; }
+	EMMAPARSER_API string			getId() { return this->id; }
+	EMMAPARSER_API float 			getConfidence() { return this->confidence; }
+	EMMAPARSER_API unsigned long long 	getDuration() { return (this->end- this->start); }
+	EMMAPARSER_API unsigned long long 	getEnd() { return this->end; }
+	EMMAPARSER_API const string& 	getMedium() { return this->medium; }
+	EMMAPARSER_API const string& 	getMode() { return this->mode; }
+	EMMAPARSER_API bool 			isNoInput() { return this->no_input; }
+	EMMAPARSER_API Container* 		getParent() { return this->parent; }
+	EMMAPARSER_API unsigned long long 	getStart() { return this->start; }
+	EMMAPARSER_API const string& 	getTokens() { return this->tokens; }
+	EMMAPARSER_API bool 			isUninterpreted() { return this->uninterpreted; }
+	EMMAPARSER_API float 			getCost() { return this->cost; }
+	EMMAPARSER_API string 			getDialogTurn() { return this->dialog_turn; }
+	EMMAPARSER_API string 			getFunction() { return this->function; }
+	EMMAPARSER_API string 			getLang() { return this->lang; }
+	EMMAPARSER_API string 			getMediaType() { return this->media_type; }
+	EMMAPARSER_API string 			getModelRefId() { return this->model_ref; }
+	EMMAPARSER_API string	 		getGrammarRefId() { return this->grammar_ref; }
+	EMMAPARSER_API Model* 			getModelRef() { return this->modelRef; }
+	EMMAPARSER_API Grammar* 		getGrammarRef() { return this->grammarRef; }
+	EMMAPARSER_API long 			getOffsetToStart() { return this->offset_to_start; }
+	EMMAPARSER_API string 			getProcess() { return this->process; }
+	EMMAPARSER_API string 			getSignal() { return this->signal; }
+	EMMAPARSER_API unsigned long long 	getSignalSize() { return this->signal_size; }
+	EMMAPARSER_API string 			getSource() { return this->source; }
+	EMMAPARSER_API string 			getTimeRefAnchorPoint() { return this->time_ref_anchor_point; }
+	EMMAPARSER_API string 			getTimeRefUri() { return this->time_ref_uri; }
+	EMMAPARSER_API bool 			isVerbal() { return this->verbal; }
+	EMMAPARSER_API vector<DerivedFrom*> getDerivedFrom() { return this->derivedFrom; }
 
-	string 			toString();
+	EMMAPARSER_API string 			toString();
 
 private:
 	string			attributesToString();

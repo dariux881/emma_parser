@@ -9,7 +9,7 @@
 #include <sstream>
 
 Sequence::Sequence() {
-	containerType = SEQUENCE;
+	containerType = SEQUENCE_CONTAINER;
 }
 
 Sequence::~Sequence() {

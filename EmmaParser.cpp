@@ -11,6 +11,8 @@
 map<string, Grammar*> EmmaParser::allGrammars;
 map<string, Model*> EmmaParser::allModels;
 map<string, Interpretation*> EmmaParser::allInterpretations;
+vector<Interpretation*>	EmmaParser::tmpInterpretationRef;
+vector<Container*>		EmmaParser::tmpContainerRef;
 
 EmmaParser::EmmaParser() {
 }
@@ -134,7 +136,7 @@ Emma* EmmaParser::readEmma(xmlNode* node) {
 			cont = readContainer(curNode, "sequence");
 
 			if( cont ) {
-				if( result->getContainer() ) {
+				if(result->getContainer() ) {
 					// I found a valid container, but the node already has one of them. Error
 					delete cont;
 					cont = NULL;
@@ -313,8 +315,8 @@ Container* EmmaParser::readContainer(xmlNode* node, string type) {
 				break;
 			}
 
-			newInter->setContainerParent(cont);
-			cont->addInterpretation( newInter );
+			newInter->setContainerParent( cont);
+			cont->addInterpretation(  newInter );
 		}
 		else if( !xmlStrcmp(curNode->name, (const xmlChar*)"one-of" ) ) {
 			Container* newCont;
@@ -340,7 +342,7 @@ Container* EmmaParser::readContainer(xmlNode* node, string type) {
 			}
 
 			cont->addNestedContainer( newCont );
-			newCont->setParentContainer(cont);
+			newCont->setParentContainer( cont);
 		}
 		if( !xmlStrcmp(curNode->name, (const xmlChar*)"sequence" ) ) {
 			Container* newCont;
@@ -353,7 +355,7 @@ Container* EmmaParser::readContainer(xmlNode* node, string type) {
 			}
 
 			cont->addNestedContainer( newCont );
-			newCont->setParentContainer(cont);
+			newCont->setParentContainer( cont);
 		}
 	}
 
@@ -390,76 +392,76 @@ Interpretation* EmmaParser::readInterpretation(xmlNode* node) {
 			inter->setId( propStr );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"medium")) {
-			inter->setMedium( propStr );
+			inter->setMedium(propStr );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"mode")) {
-			inter->setMode( propStr );
+			inter->setMode(propStr );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"tokens")) {
-			inter->setTokens( propStr );
+			inter->setTokens(propStr );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"confidence")) {
-			inter->setConfidence( Utils::stringToNumber<float>( propStr ) );
+			inter->setConfidence(Utils::stringToNumber<float>( propStr ) );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"duration")) {
-			inter->setDuration( Utils::stringToNumber<unsigned long>( propStr ) );
+			inter->setDuration(Utils::stringToNumber<unsigned long>( propStr ) );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"start")) {
-			inter->setStart( Utils::stringToNumber<unsigned long long>( propStr ) );
+			inter->setStart(Utils::stringToNumber<unsigned long long>( propStr ) );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"end")) {
-			inter->setEnd( Utils::stringToNumber<unsigned long long>( propStr ) );
+			inter->setEnd(Utils::stringToNumber<unsigned long long>( propStr ) );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"no-input")) {
-			inter->setNoInput( propStr.compare("true")==0 ? true : false );
+			inter->setNoInput(propStr.compare("true")==0 ? true : false );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"uninterpreted")) {
-			inter->setUninterpreted( propStr.compare("true")==0 ? true : false );
+			inter->setUninterpreted(propStr.compare("true")==0 ? true : false );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"verbal")) {
-			inter->setVerbal( propStr.compare("true")==0 ? true : false );
+			inter->setVerbal(propStr.compare("true")==0 ? true : false );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"singnal-size")) {
-			inter->setSignalSize( Utils::stringToNumber<unsigned long long>( propStr ) );
+			inter->setSignalSize(Utils::stringToNumber<unsigned long long>( propStr ) );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"offset-to-start")) {
-			inter->setOffsetToStart( Utils::stringToNumber<long>( propStr ) );
+			inter->setOffsetToStart(Utils::stringToNumber<long>( propStr ) );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"cost")) {
-			inter->setCost( Utils::stringToNumber<float>( propStr ) );
+			inter->setCost(Utils::stringToNumber<float>( propStr ) );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"process")) {
-			inter->setProcess( propStr );
+			inter->setProcess(propStr );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"lang")) {
-			inter->setLang( propStr );
+			inter->setLang(propStr );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"signal")) {
-			inter->setSignal( propStr );
+			inter->setSignal(propStr );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"source")) {
-			inter->setSource( propStr );
+			inter->setSource(propStr );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"function")) {
-			inter->setFunction( propStr );
+			inter->setFunction(propStr );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"dialog-turn")) {
-			inter->setDialogTurn( propStr );
+			inter->setDialogTurn(propStr );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"media-type")) {
-			inter->setMediaType( propStr );
+			inter->setMediaType(propStr );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"model-ref")) {
-			inter->setModelRef( propStr );
+			inter->setModelRef(propStr );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"grammar-ref")) {
-			inter->setGrammarRef( propStr );
+			inter->setGrammarRef(propStr );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"time-ref-uri")) {
-			inter->setTimeRefUri( propStr );
+			inter->setTimeRefUri(propStr );
 		}
 		else if( !xmlStrcmp(prop->name, (const xmlChar*)"time-ref-anchor-point")) {
-			inter->setTimeRefAnchorPoint( propStr );
+			inter->setTimeRefAnchorPoint(propStr );
 		}
 
 		prop = prop->next;
@@ -671,7 +673,7 @@ void EmmaParser::finalize() {
 		for( dfIt=df.begin(); dfIt!=df.end(); dfIt++ ) {
 			tmpIntRef = allInterpretations[ (*dfIt)->getResourceId() ];
 			if( tmpIntRef )
-				(*dfIt)->setResource(tmpIntRef);
+				(*dfIt)->setResource( tmpIntRef);
 		}
 	}
 
@@ -683,7 +685,7 @@ void EmmaParser::finalize() {
 		if( (tmpId.compare("")) &&// valid stored id
 				( allGrammars.find(tmpId)!=allGrammars.end() ) ) { // found
 
-			(*conIt)->setGrammarRef( allGrammars[tmpId] );
+			(*conIt)->setGrammarRef(allGrammars[tmpId] );
 		}
 
 		// I link models id and objects
@@ -700,7 +702,7 @@ void EmmaParser::finalize() {
 		for( dfIt=df.begin(); dfIt!=df.end(); dfIt++ ) {
 			tmpIntRef = allInterpretations[ (*dfIt)->getResourceId() ];
 			if( tmpIntRef )
-				(*dfIt)->setResource(tmpIntRef);
+				(*dfIt)->setResource( tmpIntRef);
 		}
 
 		// I link interpretations nested in a container
@@ -710,7 +712,7 @@ void EmmaParser::finalize() {
 			for( dfIt=df.begin(); dfIt!=df.end(); dfIt++ ) {
 				tmpIntRef = allInterpretations[ (*dfIt)->getResourceId() ];
 				if( tmpIntRef )
-					(*dfIt)->setResource(tmpIntRef);
+					(*dfIt)->setResource( tmpIntRef);
 			}
 		}
 	}

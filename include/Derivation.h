@@ -8,6 +8,12 @@
 #ifndef DERIVATION_H_
 #define DERIVATION_H_
 
+#ifdef EMMAPARSER_EXPORTS  
+#define EMMAPARSER_API __declspec(dllexport)   
+#else  
+#define EMMAPARSER_API __declspec(dllimport)   
+#endif  
+
 #include <vector>
 #include "Container/Container.h"
 
@@ -15,21 +21,21 @@ using namespace std;
 
 class Derivation {
 public:
-	Derivation();
-	virtual ~Derivation();
+	EMMAPARSER_API Derivation();
+	EMMAPARSER_API virtual ~Derivation();
 
-	void addContainer( Container* newCont ) {
+	EMMAPARSER_API void addContainer( Container* newCont ) {
 		if( newCont )
-			conts.push_back(newCont);
+			this->conts.push_back(newCont);
 	}
 
-	void addInterpretation( Interpretation* inter) {
+	EMMAPARSER_API void addInterpretation( Interpretation* inter) {
 		if( inter )
-			interprets.push_back(inter);
+			this->interprets.push_back(inter);
 	}
 
-	string 	toString();
-	string	childrenToString();
+	EMMAPARSER_API string 	toString();
+	EMMAPARSER_API string	childrenToString();
 
 private:
 	vector<Container*> 		conts;

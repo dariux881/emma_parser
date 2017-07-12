@@ -20,8 +20,8 @@ DerivedFrom::~DerivedFrom() {
 void DerivedFrom::setResourceId(string interRefId) {
 	this->resourceId = interRefId;
 
-	if( resourceId.find('#', 0)!=string::npos ) {
-		resourceId.erase(0,1);
+	if(this->resourceId.find('#', 0)!=string::npos ) {
+		this->resourceId.erase(0,1);
 	}
 }
 
@@ -29,10 +29,10 @@ string DerivedFrom::toString() {
 	stringstream ss;
 	string	resId, comp;
 
-	if( resource )
-		resId = resource->getId();
+	if(this->resource )
+		resId = this->resource->getId();
 
-	comp = composite? "true" : "false";
+	comp = this->composite? "true" : "false";
 
 	ss << "<derived-from "
 			<< "resource=\"#" << resId << "\" "

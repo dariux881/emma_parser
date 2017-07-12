@@ -8,6 +8,12 @@
 #ifndef EMMAPARSER_H_
 #define EMMAPARSER_H_
 
+#ifdef EMMAPARSER_EXPORTS  
+#define EMMAPARSER_API __declspec(dllexport)   
+#else  
+#define EMMAPARSER_API __declspec(dllimport)   
+#endif  
+
 #include "Emma.h"
 #include "Container/Container.h"
 #include "Container/OneOf.h"
@@ -29,11 +35,11 @@ using namespace std;
 
 class EmmaParser {
 public:
-	EmmaParser();
-	virtual ~EmmaParser();
+	EMMAPARSER_API EmmaParser();
+	EMMAPARSER_API virtual ~EmmaParser();
 
-	Emma* parseDocument(string path);
-	Emma* parseNode(string node);
+	static EMMAPARSER_API Emma* parseDocument(string path);
+	static EMMAPARSER_API Emma* parseNode(string node);
 
 	Grammar*	getGrammarRef(string id);
 	Model*		getModelRef(string id);
@@ -43,18 +49,18 @@ public:
 	static map<string, Interpretation*> allInterpretations;
 
 private:
-	Emma* 			readEmma(xmlNode*);
-	Container* 		readContainer(xmlNode*, string);
-	Interpretation* readInterpretation(xmlNode*);
-	Derivation*		readDerivation(xmlNode*);
-	DerivedFrom*	readDerivedFrom(xmlNode*);
-	Grammar*		readGrammar(xmlNode*);
-	Model*			readModel(xmlNode*);
+	static Emma* 			readEmma(xmlNode*);
+	static Container* 		readContainer(xmlNode*, string);
+	static Interpretation* readInterpretation(xmlNode*);
+	static Derivation*		readDerivation(xmlNode*);
+	static DerivedFrom*	readDerivedFrom(xmlNode*);
+	static Grammar*		readGrammar(xmlNode*);
+	static Model*			readModel(xmlNode*);
 
-	void	finalize();
+	static void	finalize();
 
-	vector<Interpretation*>	tmpInterpretationRef;
-	vector<Container*>		tmpContainerRef;
+	static vector<Interpretation*>	tmpInterpretationRef;
+	static vector<Container*>		tmpContainerRef;
 };
 
 #endif /* EMMAPARSER_H_ */

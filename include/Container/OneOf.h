@@ -8,39 +8,50 @@
 #ifndef CONTAINER_ONEOF_H_
 #define CONTAINER_ONEOF_H_
 
+#ifdef EMMAPARSER_EXPORTS  
+#define EMMAPARSER_API __declspec(dllexport)   
+#else  
+#define EMMAPARSER_API __declspec(dllimport)   
+#endif  
+
 #include "Container.h"
 #include "../Interpretation.h"
 
 enum DISJUNCTION_TYPE {UNSET, RECOGNITION, UNDERSTANDING, MULTI_DEVICE, MULTI_PROCESS};
 
+using namespace std;
+
 class OneOf : public Container {
 public:
-	OneOf();
-	virtual ~OneOf();
+	EMMAPARSER_API OneOf();
+	EMMAPARSER_API virtual ~OneOf();
 
-	void setMedium(string med);
-	void setMode(string mode);
-	void setDisjunctionType(DISJUNCTION_TYPE disjunctionType) { disjunction_type = disjunctionType; }
+	EMMAPARSER_API void setMedium(string med);
+	EMMAPARSER_API void setMode(string mode);
+	EMMAPARSER_API void setDisjunctionType(DISJUNCTION_TYPE disjunctionType) { this->disjunction_type = disjunctionType; }
 
-	vector<Interpretation*> getInterpretations() { return getInterpretations_impl(); }
-	string 					toString() { return toString_impl(); }
-	DISJUNCTION_TYPE 		getDisjunctionType() { return disjunction_type; }
+	EMMAPARSER_API vector<Interpretation*> getInterpretations() { return this->getInterpretations_impl(); }
+	EMMAPARSER_API string 					toString() { return this->toString_impl(); }
+	EMMAPARSER_API DISJUNCTION_TYPE 		getDisjunctionType() { return this->disjunction_type; }
 
-	void addInterpretation(Interpretation* newInt) {
-		addInterpretation_impl(newInt);
+	EMMAPARSER_API void addInterpretation(Interpretation* newInt) {
+		this->addInterpretation_impl(newInt);
 	}
-	void addNestedContainer(Container* newCont) {
-		addNestedContainer_impl(newCont);
+	EMMAPARSER_API void addNestedContainer(Container* newCont) {
+		this->addNestedContainer_impl(newCont);
 	}
-	string attributesToString();
+	EMMAPARSER_API string attributesToString() {
+		return attributesToString_impl();
+	}
 
 protected:
+	DISJUNCTION_TYPE disjunction_type;
+
 	void addInterpretation_impl(Interpretation* newInt);
 	void addNestedContainer_impl(Container* newCont);
 	vector<Interpretation*> getInterpretations_impl();
 	string toString_impl();
-
-	DISJUNCTION_TYPE disjunction_type;
+	string attributesToString_impl();
 };
 
 #endif /* CONTAINER_ONEOF_H_ */

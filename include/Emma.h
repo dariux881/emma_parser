@@ -8,23 +8,29 @@
 #ifndef EMMA_H_
 #define EMMA_H_
 
+#ifdef EMMAPARSER_EXPORTS  
+#define EMMAPARSER_API __declspec(dllexport)   
+#else  
+#define EMMAPARSER_API __declspec(dllimport)   
+#endif
+
 #include "Container/Container.h"
 #include "Derivation.h"
 
 class Emma {
 public:
-	Emma();
-	virtual ~Emma();
+	EMMAPARSER_API Emma();
+	EMMAPARSER_API ~Emma();
 
-	void setContainer(Container* newCont) { container = newCont; }
-	void setDerivation(Derivation* derivation) { this->derivation = derivation; }
+	EMMAPARSER_API void setContainer(Container* newCont) { this->container = newCont; }
+	EMMAPARSER_API void setDerivation(Derivation* derivation) { this->derivation = derivation; }
 
-	Container* getContainer() { return container; }
-	Derivation* getDerivation() { return derivation; }
+	EMMAPARSER_API Container* getContainer() { return this->container; }
+	EMMAPARSER_API Derivation* getDerivation() { return this->derivation; }
 
-	vector<Interpretation*> getAllData();
+	EMMAPARSER_API vector<Interpretation*> getAllData();
 
-	string toString();
+	EMMAPARSER_API string toString();
 
 private:
 	Derivation*	derivation;

@@ -9,7 +9,7 @@
 #include <sstream>
 
 OneOf::OneOf() {
-	containerType = ONE_OF;
+	containerType = ONE_OF_CONTAINER;
 	disjunction_type = UNSET;
 }
 
@@ -27,7 +27,7 @@ void OneOf::setMedium(string med) {
 		return;
 
 	for( it=interprets.begin(); it!=interprets.end(); it++ ) {
-		(*it)->setMedium(med);
+		(*it)->setMedium( med);
 	}
 }
 
@@ -41,8 +41,8 @@ void OneOf::setMode(string mode) {
 	if( !mode.compare("") )
 		return;
 
-	for( it=interprets.begin(); it!=interprets.end(); it++ ) {
-		(*it)->setMode(mode);
+	for( it= interprets.begin(); it!=interprets.end(); it++ ) {
+		(*it)->setMode( mode);
 	}
 }
 
@@ -147,13 +147,13 @@ string OneOf::toString_impl() {
 /**
  * reports as string all attributes specific to one-of node
  */
-string OneOf::attributesToString() {
+string OneOf::attributesToString_impl() {
 	stringstream ss;
 
 	ss << Container::attributesToString();
 
-	if( disjunction_type != UNSET )
-		ss << "disjunction-type=\""<< disjunction_type <<"\" ";
+	if( this->disjunction_type != UNSET )
+		ss << "disjunction-type=\""<< this->disjunction_type <<"\" ";
 
 	return ss.str();
 }

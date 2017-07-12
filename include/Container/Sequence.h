@@ -8,27 +8,32 @@
 #ifndef CONTAINER_SEQUENCE_H_
 #define CONTAINER_SEQUENCE_H_
 
+#ifdef EMMAPARSER_EXPORTS  
+#define EMMAPARSER_API __declspec(dllexport)   
+#else  
+#define EMMAPARSER_API __declspec(dllimport)   
+#endif  
+
 #include "Container.h"
 #include "../Interpretation.h"
 
 class Sequence : public Container {
 public:
-	Sequence();
-	virtual ~Sequence();
+	EMMAPARSER_API Sequence();
+	EMMAPARSER_API virtual ~Sequence();
 
-	void addInterpretation(Interpretation* newInt) {
-		addInterpretation_impl(newInt);
+	EMMAPARSER_API void addInterpretation(Interpretation* newInt) {
+		this->addInterpretation_impl(newInt);
 	}
-	void addNestedContainer(Container* newCont) {
-		addNestedContainer_impl(newCont);
+	EMMAPARSER_API void addNestedContainer(Container* newCont) {
+		this->addNestedContainer_impl(newCont);
 	}
-	vector<Interpretation*> getInterpretations() {
-		return getInterpretations_impl();
+	EMMAPARSER_API vector<Interpretation*> getInterpretations() {
+		return this->getInterpretations_impl();
 	}
-	string toString() {
-		return toString_impl();
+	EMMAPARSER_API string toString() {
+		return this->toString_impl();
 	}
-
 
 protected:
 	void addInterpretation_impl(Interpretation* newInt);

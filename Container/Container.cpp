@@ -8,12 +8,15 @@
 #include "Container.h"
 #include <sstream>
 #include <climits>
+#if defined WIN32 || _WIN64
+#include <algorithm>
+#endif
 
 Container::Container() {
 	start = end = signal_size = 0;
 	confidence = 1.0f;
 	cost = 0.0f;
-	containerType = ONE_OF;
+	containerType = ONE_OF_CONTAINER;
 	parentContainer = NULL;
 	grammarRef = NULL;
 	modelRef = NULL;
@@ -28,7 +31,7 @@ Container::~Container() {
  * This method set the start for an interpretation
  */
 void Container::setStart(unsigned long long start) {
-	this->start = start;
+	start = start;
 }
 
 /**
@@ -51,13 +54,13 @@ void Container::setDuration(unsigned long long dur) {
 /**
  * This method set the end for an interpretation
  */
-void Container::setEnd(unsigned long long end) {
-	this->end = end;
+void Container::setEnd(unsigned long long end2) {
+	end = end2;
 }
 
-void Container::addDerivedFrom(DerivedFrom* derivedFrom) {
-	if( derivedFrom )
-		this->derivedFrom.push_back( derivedFrom );
+void Container::addDerivedFrom(DerivedFrom* derFrom) {
+	if(derFrom)
+		derivedFrom.push_back(derFrom);
 }
 
 /**
@@ -65,7 +68,7 @@ void Container::addDerivedFrom(DerivedFrom* derivedFrom) {
  * autonomous intervals for children
  */
 void Container::finalizeCreation() {
-	unsigned long 	tmpStart, tmpEnd;
+	unsigned long long 	tmpStart, tmpEnd;
 	float			maxConfidence;
 	vector<Interpretation*>::iterator intIt;
 	vector<Container*>::iterator conIt;
@@ -74,7 +77,7 @@ void Container::finalizeCreation() {
 	tmpEnd = 0;
 	maxConfidence = 0;
 
-	for( intIt=interprets.begin(); intIt!=interprets.end(); intIt++ ) {
+	for( intIt= interprets.begin(); intIt!= interprets.end(); intIt++ ) {
 		// Update start and finish from children interpretation
 		if ((*intIt)->getStart() < tmpStart)
 			tmpStart = (*intIt)->getStart();
@@ -82,20 +85,20 @@ void Container::finalizeCreation() {
 			tmpEnd = (*intIt)->getEnd();
 
 		// Update confidence from children interpretations
-		if( (*intIt)->getConfidence() > maxConfidence )
+		if((*intIt)->getConfidence() > maxConfidence )
 			maxConfidence = (*intIt)->getConfidence();
 	}
 
-	for( conIt=nested.begin(); conIt!=nested.end(); conIt++ ) {
+	for( conIt= nested.begin(); conIt!= nested.end(); conIt++ ) {
 		// Update start and finish from children containers
-		if ((*conIt)->getStart() < tmpStart)
+		if (getStart() < tmpStart)
 			tmpStart = (*conIt)->getStart();
-		if ((*conIt)->getEnd() > tmpEnd)
-			tmpEnd = (*conIt)->getEnd();
+		if (getEnd() > tmpEnd)
+			tmpEnd = getEnd();
 
 		// Update confidence from children interpretations
-		if( (*conIt)->getConfidence() > maxConfidence )
-			maxConfidence = (*conIt)->getConfidence();
+		if( getConfidence() > maxConfidence )
+			maxConfidence = getConfidence();
 	}
 
 	if( tmpStart == ULONG_MAX) // no children or no valid start for them
@@ -121,49 +124,49 @@ string Container::attributesToString() {
 	if (tokens.compare(""))
 		ss << "tokens=\"" << tokens << "\" ";
 
-	if( medium.compare(""))
+	if(medium.compare(""))
 		ss << "medium=\"" << medium << "\" ";
 
-	if( mode.compare(""))
+	if(mode.compare(""))
 		ss << "mode=\"" << mode << "\" ";
 
-	if( process.compare(""))
+	if(process.compare(""))
 		ss << "process=\"" << process << "\" ";
 
-	if( lang.compare(""))
+	if(lang.compare(""))
 		ss << "lang=\"" << lang << "\" ";
 
-	if( signal.compare(""))
+	if(signal.compare(""))
 		ss << "signal=\"" << signal << "\" ";
 
-	if( source.compare(""))
+	if(source.compare(""))
 		ss << "source=\"" << source << "\" ";
 
-	if( function.compare(""))
+	if(function.compare(""))
 		ss << "function=\"" << function << "\" ";
 
-	if( dialog_turn.compare(""))
+	if(dialog_turn.compare(""))
 		ss << "dialog-turn=\"" << dialog_turn << "\" ";
 
-	if( media_type.compare(""))
+	if(media_type.compare(""))
 		ss << "media-type=\"" << media_type << "\" ";
 
-	if( time_ref_uri.compare(""))
+	if(time_ref_uri.compare(""))
 		ss << "time-ref-uri=\"" << time_ref_uri << "\" ";
 
-	if( time_ref_anchor_point.compare(""))
+	if(time_ref_anchor_point.compare(""))
 		ss << "time-ref-anchor-point=\"" << time_ref_anchor_point << "\" ";
 
-	if( signal_size!=0 )
+	if(signal_size!=0 )
 		ss << "signal-size=\""<< signal_size <<"\" ";
 
-	if( offset_to_start!=0 )
+	if(offset_to_start!=0 )
 		ss << "offset-to-start=\""<< offset_to_start <<"\" ";
 
-	if( grammarRef )
+	if(grammarRef )
 		ss << "grammar-ref=\""<< grammarRef->getId() <<"\" ";
 
-	if( modelRef )
+	if(modelRef )
 		ss << "model-ref=\""<< modelRef->getId() <<"\" ";
 
 	ss << "verbal=\"" << verbalStr << "\" ";
@@ -177,13 +180,13 @@ string Container::childrenToString() {
 	vector<Interpretation*>::iterator intIt;
 
 	if( !interprets.empty() ) {
-		for( intIt=interprets.begin(); intIt!=interprets.end(); intIt++) {
+		for( intIt= interprets.begin(); intIt!= interprets.end(); intIt++) {
 			ss << (*intIt)->toString();
 		}
 	}
 
 	if( !nested.empty() ) {
-		for( contIt=nested.begin(); contIt!=nested.end(); contIt++) {
+		for( contIt= nested.begin(); contIt!= nested.end(); contIt++) {
 			ss << (*contIt)->toString();
 		}
 	}

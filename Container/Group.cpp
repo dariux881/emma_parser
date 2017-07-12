@@ -9,7 +9,7 @@
 #include <sstream>
 
 Group::Group() {
-	containerType = GROUP;
+	containerType = GROUP_CONTAINER;
 	start = 0;
 	end = 0;
 }
