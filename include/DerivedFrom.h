@@ -8,12 +8,7 @@
 #ifndef DERIVEDFROM_H_
 #define DERIVEDFROM_H_
 
-#ifdef EMMAPARSER_EXPORTS  
-#define EMMAPARSER_API __declspec(dllexport)   
-#else  
-#define EMMAPARSER_API __declspec(dllimport)   
-#endif  
-
+#include "../config.h"
 #include <string>
 #include "Interpretation.h"
 

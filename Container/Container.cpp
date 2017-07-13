@@ -31,7 +31,7 @@ Container::~Container() {
  * This method set the start for an interpretation
  */
 void Container::setStart(unsigned long long start) {
-	start = start;
+	this->start = start;
 }
 
 /**

@@ -8,12 +8,7 @@
 #ifndef INTERPRETATION_H_
 #define INTERPRETATION_H_
 
-#ifdef EMMAPARSER_EXPORTS  
-#define EMMAPARSER_API __declspec(dllexport)   
-#else  
-#define EMMAPARSER_API __declspec(dllimport)   
-#endif  
-
+#include "../config.h"
 #include "Container/Container.h"
 #include "Grammar.h"
 #include "Model.h"

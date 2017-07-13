@@ -8,12 +8,7 @@
 #ifndef CONTAINER_GROUP_H_
 #define CONTAINER_GROUP_H_
 
-#ifdef EMMAPARSER_EXPORTS  
-#define EMMAPARSER_API __declspec(dllexport)   
-#else  
-#define EMMAPARSER_API __declspec(dllimport)   
-#endif  
-
+#include "../../config.h"
 #include "Container.h"
 #include "../Interpretation.h"
 

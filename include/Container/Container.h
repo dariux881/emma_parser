@@ -8,12 +8,7 @@
 #ifndef CONTAINER_CONTAINER_H_
 #define CONTAINER_CONTAINER_H_
 
-#ifdef EMMAPARSER_EXPORTS  
-#define EMMAPARSER_API __declspec(dllexport)   
-#else  
-#define EMMAPARSER_API __declspec(dllimport)   
-#endif  
-
+#include "../../config.h"
 #include <vector>
 #include "../Interpretation.h"
 #include "../Grammar.h"
