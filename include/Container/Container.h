@@ -8,7 +8,7 @@
 #ifndef CONTAINER_CONTAINER_H_
 #define CONTAINER_CONTAINER_H_
 
-#include "../../config.h"
+#include "../config.h"
 #include <vector>
 #include "../Interpretation.h"
 #include "../Grammar.h"

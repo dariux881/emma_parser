@@ -8,7 +8,7 @@
 #ifndef CONTAINER_ONEOF_H_
 #define CONTAINER_ONEOF_H_
 
-#include "../../config.h"
+#include "../config.h"
 #include "Container.h"
 #include "../Interpretation.h"
 

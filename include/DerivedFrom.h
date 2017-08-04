@@ -8,7 +8,7 @@
 #ifndef DERIVEDFROM_H_
 #define DERIVEDFROM_H_
 
-#include "../config.h"
+#include "config.h"
 #include <string>
 #include "Interpretation.h"
 

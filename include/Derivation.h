@@ -8,7 +8,7 @@
 #ifndef DERIVATION_H_
 #define DERIVATION_H_
 
-#include "../config.h"
+#include "config.h"
 #include <vector>
 #include "Container/Container.h"
 

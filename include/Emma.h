@@ -8,7 +8,7 @@
 #ifndef EMMA_H_
 #define EMMA_H_
 
-#include "../config.h"
+#include "config.h"
 #include "Container/Container.h"
 #include "Derivation.h"
 

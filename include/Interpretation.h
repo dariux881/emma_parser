@@ -8,7 +8,7 @@
 #ifndef INTERPRETATION_H_
 #define INTERPRETATION_H_
 
-#include "../config.h"
+#include "config.h"
 #include "Container/Container.h"
 #include "Grammar.h"
 #include "Model.h"

@@ -8,7 +8,7 @@
 #ifndef CONTAINER_SEQUENCE_H_
 #define CONTAINER_SEQUENCE_H_
 
-#include "../../config.h"
+#include "../config.h"
 #include "Container.h"
 #include "../Interpretation.h"
 

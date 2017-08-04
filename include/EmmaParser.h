@@ -8,7 +8,7 @@
 #ifndef EMMAPARSER_H_
 #define EMMAPARSER_H_
 
-#include "../config.h"
+#include "config.h"
 #include "Emma.h"
 #include "Container/Container.h"
 #include "Container/OneOf.h"

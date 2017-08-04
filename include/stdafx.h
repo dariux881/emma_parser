@@ -5,12 +5,11 @@
 
 #pragma once
 
+#if defined WIN32 || _WIN64
 #include "targetver.h"
 
 #define WIN32_LEAN_AND_MEAN             // Escludere gli elementi utilizzati di rado dalle intestazioni di Windows
 // File di intestazione di Windows:
 #include <windows.h>
 
-
-
-// TODO: fare riferimento qui alle intestazioni aggiuntive richieste dal programma
+#endif

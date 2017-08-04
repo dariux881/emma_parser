@@ -1,6 +1,6 @@
 // dllmain.cpp: definisce il punto di ingresso per l'applicazione DLL.
 #include "stdafx.h"
-
+#if defined WIN32 || _WIN64
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved
@@ -17,3 +17,4 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 	return TRUE;
 }
 
+#endif
